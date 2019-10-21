@@ -31,8 +31,8 @@ public class User {
     @Column
     private String mobile;
     
-    @Column
-    private String addl_email;
+    @Column(name = "addl_email")
+    private String addlEmail;
 
     public User() {}
     
@@ -84,13 +84,15 @@ public class User {
 		this.mobile = mobile;
 	}
 
-	public String getAddl_email() {
-		return addl_email;
+	public String getAddlEmail() {
+		return addlEmail;
 	}
 
-	public void setAddl_email(String addl_email) {
-		this.addl_email = addl_email;
+	public void setAddlEmail(String addlEmail) {
+		this.addlEmail = addlEmail;
 	}
+
+	
     
     
 }
