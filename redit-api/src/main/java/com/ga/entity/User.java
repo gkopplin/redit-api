@@ -1,11 +1,19 @@
 package com.ga.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name="users")
@@ -33,6 +41,13 @@ public class User {
     
     @Column(name = "addl_email")
     private String addlEmail;
+    
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    
+    private List<Post> posts;
+    
 
     public User() {}
     
