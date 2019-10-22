@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         User user = userDao.getUserByUsername(username);
 
         if(user==null)
-            throw new UsernameNotFoundException("Unkknown user: " +username);
+            throw new UsernameNotFoundException("Unknown user: " +username);
         
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 

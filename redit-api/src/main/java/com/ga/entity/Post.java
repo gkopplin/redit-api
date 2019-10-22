@@ -1,6 +1,5 @@
 package com.ga.entity;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,17 +28,10 @@ public class Post {
 	@Column(nullable = false)
 	private String body;
 	
-	
-
-	
 	@JsonIgnore
 	@ManyToOne (fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
-		@JoinColumn(name = "post_id", nullable = false)
-
-	
-	
+		@JoinColumn(name = "author_id", nullable = false)
 	private User author;
-
 
 
 	public Long getPostId() {
@@ -70,7 +62,7 @@ public class Post {
 	public User getAuthor() {
 		return author;
 	}
-
+	
 	public void setAuthor(User author) {
 		this.author = author;
 	}
