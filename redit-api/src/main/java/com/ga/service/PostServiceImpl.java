@@ -10,11 +10,16 @@ import com.ga.entity.Post;
 public class PostServiceImpl implements PostService {
 	
 	@Autowired
-	PostDao PostDao;
+	PostDao postDao;
 
 	@Override
 	public Post createPost(String username, Post post) {
-		return PostDao.createPost(username, post);
+		return postDao.createPost(username, post);
+	}
+	
+	@Override
+	public Post getPost(Long postId) {
+		return  postDao.getPost(postId);
 	}
 
 }
