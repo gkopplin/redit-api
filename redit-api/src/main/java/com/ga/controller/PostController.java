@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ga.entity.Comment;
 import com.ga.entity.Post;
+import com.ga.service.CommentService;
 import com.ga.service.PostService;
 
 @RestController
@@ -20,6 +22,9 @@ public class PostController {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	private CommentService commentService;
 	
 	@PostMapping
 	public Post createPost(Authentication auth, @RequestBody Post post) {
@@ -40,6 +45,12 @@ public class PostController {
 	@PutMapping("/{postId}")
 	public Post updatePost(@PathVariable Long postId, @RequestBody Post post) {
 		return postService.updatePost(postId, post);
+	}
+	
+	@PostMapping("/{postId}/comment")
+	public Comment createComment(Authentication auth, @PathVariable Long postId, @RequestBody Comment comment) {
+		String username = auth.getName();
+		return commentService.createComment(username, postId, comment);
 	}
 }
 
