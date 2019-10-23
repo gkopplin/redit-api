@@ -1,5 +1,7 @@
 package com.ga.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +23,7 @@ public class UserController {
 	UserService userService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> signup(@RequestBody User user) {
+	public ResponseEntity<?> signup(@Valid @RequestBody User user) {
 		return ResponseEntity.ok(new JwtResponse(userService.signup(user)));
 	}
 

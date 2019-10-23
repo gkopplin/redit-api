@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     JwtUtil jwtUtil;
 
 	@Override
-	public String login(User user) {
+	public String login(User user) throws LoginException {
 		User foundUser = userDao.login(user);
 		if(foundUser != null && 
 				foundUser.getUserId() != null && 
@@ -49,8 +49,8 @@ public class UserServiceImpl implements UserService {
 		    
 		    return jwtUtil.generateToken(userDetails);
 		}
-        	
-		return null;
+		
+		throw new LoginException("Username/password incorrect.");
 	}
 	
 	@Autowired

@@ -10,7 +10,7 @@ public interface UserService extends UserDetailsService {
 
     String signup(User user);
 
-	String login(User user);
+	String logins(User user) throws EntityNotFoundException;
 	
 	User updateUser(User user, Long userId);
 		

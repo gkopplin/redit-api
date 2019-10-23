@@ -1,5 +1,7 @@
 package com.ga.dao;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,12 @@ public class UserDaoImpl implements UserDao {
 			session.beginTransaction();
 			resultUser = (User) session.createQuery("FROM User u WHERE u.username = '" + user.getUsername()
 					+ "'").getSingleResult();
-		} finally {
+		} 
+		catch(Exception e) {
+			throw new EntityNotFoundException("User not found");
+		}
+		
+		finally {
 			session.close();
 		}
 
