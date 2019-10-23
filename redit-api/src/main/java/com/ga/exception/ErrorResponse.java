@@ -27,6 +27,39 @@ public class ErrorResponse {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.timestamp = LocalDateTime.now().format(formatter);
     }
+
+	public HttpStatus getHttpStatus() {
+		return httpStatus;
+	}
+
+	public void setHttpStatus(HttpStatus httpStatus) {
+		this.httpStatus = httpStatus;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getCause() {
+		return cause;
+	}
+
+	public void setCause(String cause) {
+		this.cause = cause;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+    
 }
 	
 	

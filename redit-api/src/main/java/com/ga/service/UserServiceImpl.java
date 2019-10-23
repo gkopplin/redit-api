@@ -3,6 +3,8 @@ package com.ga.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
 import com.ga.entity.User;
+import com.ga.exception.LoginException;
 
 
 @Repository
@@ -40,7 +43,7 @@ public class UserServiceImpl implements UserService {
     JwtUtil jwtUtil;
 
 	@Override
-	public String login(User user) throws LoginException {
+	public String login(User user) throws LoginException,EntityNotFoundException {
 		User foundUser = userDao.login(user);
 		if(foundUser != null && 
 				foundUser.getUserId() != null && 

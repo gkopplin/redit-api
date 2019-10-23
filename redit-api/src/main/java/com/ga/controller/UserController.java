@@ -1,5 +1,6 @@
 package com.ga.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ga.entity.JwtResponse;
 import com.ga.entity.User;
+import com.ga.exception.LoginException;
 import com.ga.service.UserService;
 
 @RestController
@@ -28,7 +30,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody User user) {
+	public ResponseEntity<?> login(@RequestBody User user) throws LoginException, EntityNotFoundException{
 		return ResponseEntity.ok(new JwtResponse(userService.login(user)));
 	}
 
