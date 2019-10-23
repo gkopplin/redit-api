@@ -58,5 +58,28 @@ public class PostDaoImpl implements PostDao {
 		return post;
 		
 	}
+	
+	@Override
+	public Post deletePost(Long postId) {
+		Post post = null;
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		try {
+			session.beginTransaction();
+			
+			post = (Post)session.createQuery("FROM Post p WHERE p.postId = " + postId).getSingleResult();
+			
+			session.delete(post);
+			
+			session.getTransaction().commit();
+	
+		}
+		finally {
+			session.close();
+		}
+		
+		return post;
+	}
 
 }

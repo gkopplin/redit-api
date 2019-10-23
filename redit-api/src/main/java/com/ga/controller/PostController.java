@@ -1,6 +1,7 @@
 package com.ga.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,11 @@ public class PostController {
 	@GetMapping("/{postId}")
 	public Post getPost(@PathVariable Long postId) {
 		return postService.getPost(postId);
+	}
+	
+	@DeleteMapping("/{postId}")
+	public Post deletePost(@PathVariable Long postId) {
+		return postService.deletePost(postId);
 	}
 }
 
