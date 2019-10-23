@@ -8,4 +8,6 @@ public interface PostService {
 	public Post getPost(Long postId);
 	
 	public Post deletePost(Long postId);
+	
+	public Post updatePost(Long postId, Post post);
 }
