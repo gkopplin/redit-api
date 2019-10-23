@@ -1,13 +1,14 @@
 package com.ga.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ga.config.JwtRequestFilter;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 
@@ -125,6 +126,10 @@ public class PostDaoImpl implements PostDao {
 			session.beginTransaction();
 			
 			posts = (List<Post>) session.createQuery("FROM Post").getResultList();
+			
+			List<User> authors = new ArrayList<>();
+			posts.forEach(post -> authors.add(post.getAuthor()));
+			Hibernate.initialize(authors);
 			
 		}
 		finally {
