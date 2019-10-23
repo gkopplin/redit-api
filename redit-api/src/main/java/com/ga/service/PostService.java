@@ -1,5 +1,7 @@
 package com.ga.service;
 
+import java.util.List;
+
 import com.ga.entity.Post;
 
 public interface PostService {
@@ -10,4 +12,6 @@ public interface PostService {
 	public Post deletePost(Long postId);
 	
 	public Post updatePost(Long postId, Post post);
+	
+	public List<Post> getAllPosts();
 }

@@ -1,5 +1,7 @@
 package com.ga.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,6 +53,11 @@ public class PostController {
 	public Comment createComment(Authentication auth, @PathVariable Long postId, @RequestBody Comment comment) {
 		String username = auth.getName();
 		return commentService.createComment(username, postId, comment);
+	}
+	
+	@GetMapping("/list")
+	public List<Post> getAllPosts() {
+		return postService.getAllPosts();
 	}
 }
 

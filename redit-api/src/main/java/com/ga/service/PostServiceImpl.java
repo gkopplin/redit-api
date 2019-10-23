@@ -1,5 +1,7 @@
 package com.ga.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public Post updatePost(Long postId, Post post) {
 		return postDao.updatePost(postId, post);
+	}
+
+	@Override
+	public List<Post> getAllPosts() {
+		return postDao.getAllPosts();
 	}
 
 }
