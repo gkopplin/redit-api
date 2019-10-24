@@ -38,10 +38,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User user) throws LoginException, EntityNotFoundException{
-		 Map<String, Object> result = new HashMap<String,Object>();
-		 result.put("username",user.getUsername());
-		 result.put("token", new JwtResponse(userService.login(user)).getToken());
-		return new ResponseEntity<Map<String,Object>>(result, HttpStatus.OK);
+		return new ResponseEntity<Map<String,Object>>(userService.login(user), HttpStatus.OK);
 	}
 
 	@PutMapping("/{userId}")

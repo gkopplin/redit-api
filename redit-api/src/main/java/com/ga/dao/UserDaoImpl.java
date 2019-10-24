@@ -39,7 +39,7 @@ public class UserDaoImpl implements UserDao {
 
 		try {
 			session.beginTransaction();
-			resultUser = (User) session.createQuery("FROM User u WHERE u.username = '" + user.getUsername()
+			resultUser = (User) session.createQuery("FROM User u WHERE u.email = '" + user.getEmail()
 					+ "'").getSingleResult();
 		} 
 		catch(Exception e) {

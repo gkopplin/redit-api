@@ -1,6 +1,6 @@
 package com.ga.service;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -13,7 +13,7 @@ public interface UserService extends UserDetailsService {
 
     String signup(User user);
 
-	String login(User user) throws LoginException,EntityNotFoundException;
+    Map<String, Object> login(User user) throws LoginException,EntityNotFoundException;
 	
 	User updateUser(User user, Long userId);
 		

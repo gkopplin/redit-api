@@ -1,7 +1,9 @@
 package com.ga.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -42,14 +44,17 @@ public class UserServiceImpl implements UserService {
     JwtUtil jwtUtil;
 
 	@Override
-	public String login(User user) throws LoginException,EntityNotFoundException {
+	public Map<String, Object> login(User user) throws LoginException,EntityNotFoundException {
 		User foundUser = userDao.login(user);
 		if(foundUser != null && 
 				foundUser.getUserId() != null && 
 				bCryptPasswordEncoder.matches(user.getPassword(), foundUser.getPassword())) {
 		    UserDetails userDetails = loadUserByUsername(foundUser.getUsername());
 		    
-		    return jwtUtil.generateToken(userDetails);
+		    Map<String, Object> result = new HashMap<String,Object>();
+		    result.put("token", jwtUtil.generateToken(userDetails));
+		    result.put("username", foundUser.getUsername());
+		    return result;
 		}
 		
 		throw new LoginException("Username/password incorrect.");
