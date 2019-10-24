@@ -31,7 +31,6 @@ public class Post {
 	@Column(nullable = false)
 	private String body;
 	
-	@JsonIgnore
 	@ManyToOne (fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 		@JoinColumn(name = "author_id", nullable = false)
 	private User author;

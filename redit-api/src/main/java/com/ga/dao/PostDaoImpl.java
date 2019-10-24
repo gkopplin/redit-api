@@ -127,10 +127,6 @@ public class PostDaoImpl implements PostDao {
 			
 			posts = (List<Post>) session.createQuery("FROM Post").getResultList();
 			
-			List<User> authors = new ArrayList<>();
-			posts.forEach(post -> authors.add(post.getAuthor()));
-			Hibernate.initialize(authors);
-			
 		}
 		finally {
 			session.close();

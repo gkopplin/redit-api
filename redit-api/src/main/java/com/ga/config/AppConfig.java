@@ -45,7 +45,7 @@ public class AppConfig {
 
 		hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		hibernateProperties.setProperty("hibernate.current_session_context_class", "thread");
-//		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create"); 
+		hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "create"); 
 		hibernateProperties.setProperty("hibernate.show_sql", "true");
 		
 		return hibernateProperties;
