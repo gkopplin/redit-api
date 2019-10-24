@@ -55,6 +55,12 @@ public class PostController {
 		return commentService.createComment(username, postId, comment);
 	}
 	
+	@GetMapping("{postId}/comment")
+	public List<Comment> getComments(@PathVariable Long postId){
+		return commentService.getComments(postId);
+	}
+	
+	
 	@GetMapping("/list")
 	public List<Post> getAllPosts() {
 		return postService.getAllPosts();

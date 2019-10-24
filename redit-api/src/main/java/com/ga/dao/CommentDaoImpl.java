@@ -1,5 +1,8 @@
 package com.ga.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,27 @@ public class CommentDaoImpl implements CommentDao {
 		}
 		
 		return comment;
+	}
+	
+	@Override
+	public List<Comment> getComments(Long postId){
+		List<Comment> comments = new ArrayList<Comment>();
+		
+		Post post = postDao.getPost(postId);
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		
+		try {
+			session.beginTransaction();
+			
+			comments = post.getComments();
+		}
+		finally {
+			session.close();
+		}
+		
+		return comments;
 	}
 
 }
