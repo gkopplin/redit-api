@@ -10,10 +10,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
@@ -46,9 +49,7 @@ public class PostControllerTest {
 	
 	@Mock
 	private User user;
-	
-//	@Mock
-//	private Authentication auth;
+
 //	
 //	@Mock
 //	private SecurityContext secCtx;
@@ -70,20 +71,24 @@ public class PostControllerTest {
 		return "{ \"title\": \"" + title + "\", " +
                 "\"body\":\"" + body + "\"}";
 	   }
-
+	
 	@Test
 	public void createPost_Post_Success() throws Exception {
+		
+		
+		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/post")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(createPostInJson("title", "body"));
 	
 
 		when(postService.createPost((any()), any())).thenReturn(post);
+//		Mockito.doReturn("test").when(auth).getName();
 		
 //		Authentication auth = Mockito.mock(Authentication.class);
 //		SecurityContext secCtx = Mockito.mock(SecurityContext.class);
 //		when(secCtx.getAuthentication()).thenReturn(auth);
-//		when(auth.getName()).thenReturn("name3");
+//		when(auth.getName()).thenReturn("test");
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 				.andExpect(status().isOk()).andReturn();

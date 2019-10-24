@@ -92,7 +92,7 @@ public class UserControllerTest {
 			       .contentType(MediaType.APPLICATION_JSON)
 			       .content(createUserInJson("batman","bat","batman@email.com"));
 		
-		when(userService.login(any())).thenReturn("123456");
+//		when(userService.login(any())).thenReturn("123456");
 		
 		mockMvc.perform(requestBuilder)
           .andExpect(status().isOk())
