@@ -11,7 +11,11 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -36,12 +40,18 @@ public class PostControllerTest {
 
 	@Mock
 	private PostService postService;
-
+	
 	@InjectMocks
 	private Post post;
 	
 	@Mock
 	private User user;
+	
+//	@Mock
+//	private Authentication auth;
+//	
+//	@Mock
+//	private SecurityContext secCtx;
 
 	@Before
 	public void initializeDummyPost() {
@@ -63,15 +73,17 @@ public class PostControllerTest {
 
 	@Test
 	public void createPost_Post_Success() throws Exception {
-		String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuYW1lMyIsImV4cCI6MTU3MjAwODkyNywiaWF0IjoxNTcxOTIyNTI3fQ.8h2Zd5h86vthZaitJd42xFSrddOWDwWEq-5V_a70kokTgUM5GXmOb7aa4HUl0wQkFiSw2_XC_hftubtuBJiCUw";
-		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/post")
-				.header("authorization", "Bearer " + token)
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(createPostInJson("title", "body"));
 	
 
 		when(postService.createPost((any()), any())).thenReturn(post);
+		
+//		Authentication auth = Mockito.mock(Authentication.class);
+//		SecurityContext secCtx = Mockito.mock(SecurityContext.class);
+//		when(secCtx.getAuthentication()).thenReturn(auth);
+//		when(auth.getName()).thenReturn("name3");
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 				.andExpect(status().isOk()).andReturn();
