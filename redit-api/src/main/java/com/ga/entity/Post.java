@@ -32,13 +32,11 @@ public class Post {
 	@Column(nullable = false)
 	private String body;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
-	@ManyToOne (fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+	@ManyToOne (fetch = FetchType.EAGER, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
 		@JoinColumn(name = "author_id", nullable = false)
 	private User author;
 	
-	@JsonIgnore
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
 
@@ -75,6 +73,13 @@ public class Post {
 		this.author = author;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
 	
 }
 
