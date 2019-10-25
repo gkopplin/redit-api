@@ -21,12 +21,12 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.ga.config.AuthUtil;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.service.CommentService;
 import com.ga.service.PostService;
+import com.ga.util.AuthUtil;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PostControllerTest {

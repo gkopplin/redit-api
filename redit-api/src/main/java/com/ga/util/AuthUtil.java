@@ -1,4 +1,4 @@
-package com.ga.config;
+package com.ga.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

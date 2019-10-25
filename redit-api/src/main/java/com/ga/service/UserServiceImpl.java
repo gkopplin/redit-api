@@ -15,10 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
 import com.ga.entity.User;
 import com.ga.exception.LoginException;
+import com.ga.util.JwtUtil;
 
 
 @Service

@@ -1,4 +1,4 @@
-package com.ga.config;
+package com.ga.util;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class JwtUtil implements Serializable {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         
-	return doGenerateToken(claims, userDetails.getUsername());
+        return doGenerateToken(claims, userDetails.getUsername());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String subject) {
@@ -42,7 +42,7 @@ public class JwtUtil implements Serializable {
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
         
-	return claimsResolver.apply(claims);
+        return claimsResolver.apply(claims);
     }
 
     private Claims getAllClaimsFromToken(String token) {
