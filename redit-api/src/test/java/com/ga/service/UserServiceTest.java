@@ -95,9 +95,27 @@ public class UserServiceTest {
 	     Map<String, Object> actualToken = userService.login(user);
 	        
 	     assertEquals(actualToken, expectedToken);
-		    
 		  
 	}
+	
+	 
+	 @Test
+	    public void login_UserNotFound_Error() throws EntityNotFoundException, LoginException {
+	    	
+	    	User tempUser = user;
+	    	tempUser.setUserId(null);
+
+	        when(userDao.login(any())).thenReturn(null);
+	       
+	        try {
+	        	assertEquals(userService.login(user), null);
+	        }
+	        catch(Exception e){
+	        	String expectedMessage = "Username/password incorrect.";
+	 	        assertEquals( "Exception message must be correct", expectedMessage, e.getMessage() );
+	        }
+	        
+	   }
 	 
 	 
 	 
