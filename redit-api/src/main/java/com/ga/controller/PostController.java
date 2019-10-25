@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ga.config.AuthUtil;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.service.CommentService;
@@ -26,12 +27,14 @@ public class PostController {
 	PostService postService;
 	
 	@Autowired
+	private AuthUtil authUtil;
+	
+	@Autowired
 	private CommentService commentService;
 	
 	@PostMapping
-	public Post createPost(Authentication auth, @RequestBody Post post) {
-		String username = auth.getName();
-		return postService.createPost(username, post);
+	public Post createPost(@RequestBody Post post) {
+		return postService.createPost(authUtil.getUsername(), post);
 	}
 	
 	@GetMapping("/{postId}")
