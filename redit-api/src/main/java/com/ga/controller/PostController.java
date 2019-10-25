@@ -53,9 +53,8 @@ public class PostController {
 	}
 	
 	@PostMapping("/{postId}/comment")
-	public Comment createComment(Authentication auth, @PathVariable Long postId, @RequestBody Comment comment) {
-		String username = auth.getName();
-		return commentService.createComment(username, postId, comment);
+	public Comment createComment(@PathVariable Long postId, @RequestBody Comment comment) {
+		return commentService.createComment(authUtil.getUsername(), postId, comment);
 	}
 	
 	@GetMapping("{postId}/comment")
