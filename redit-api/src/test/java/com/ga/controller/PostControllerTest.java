@@ -1,5 +1,6 @@
 package com.ga.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -68,34 +69,57 @@ public class PostControllerTest {
 	@Test
 	public void createPost_Post_Success() throws Exception {
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/post")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post("/post")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(createPostInJson("title", "body"));
 	
 
-//		when(postService.createPost((any()), any())).thenReturn(post);
-//		when(authUtil.getUsername()).thenReturn("name3");
+		when(postService.createPost((any()), any())).thenReturn(post);
+		when(authUtil.getUsername()).thenReturn("name3");
 		
-//		MvcResult result = mockMvc.perform(requestBuilder)
-//				.andExpect(status().isOk()).andReturn();
-//
-//		assertNotNull(result);
-//		System.out.println(result.getResponse().getContentAsString());
+		MvcResult result = mockMvc.perform(requestBuilder)
+				.andExpect(status().isOk())
+				.andExpect(content().json("{\"postId\":1,\"title\":\"title\",\"body\":\"body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null},\"comments\":null}"))
+				.andReturn();
+
+		assertNotNull(result);
+		System.out.println(result.getResponse().getContentAsString());
 	}
 	
 	@Test
 	public void getPost_Post_Success() throws Exception {
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/post/1")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/post/1")
 				.contentType(MediaType.APPLICATION_JSON);
 	
 
 		when(postService.getPost((any()))).thenReturn(post);
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
-				.andExpect(status().isOk()).andReturn();
+				.andExpect(status().isOk())
+				.andExpect(content().json("{\"postId\":1,\"title\":\"title\",\"body\":\"body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null},\"comments\":null}"))
+				.andReturn();
 
 		assertNotNull(result);
-		System.out.println(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void deletePost_Post_Success() throws Exception {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.delete("/post/1")
+				.contentType(MediaType.APPLICATION_JSON);
+	
+
+		when(postService.deletePost((any()))).thenReturn(post);
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+				.andExpect(status().isOk())
+				.andExpect(content().json("{\"postId\":1,\"title\":\"title\",\"body\":\"body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null},\"comments\":null}"))
+				.andReturn();
+
+		assertNotNull(result);
 	}
 }
