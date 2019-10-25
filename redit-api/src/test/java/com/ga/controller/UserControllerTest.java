@@ -1,6 +1,16 @@
 package com.ga.controller;
 
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,15 +24,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.ga.entity.User;
 import com.ga.service.UserService;
-
-import org.junit.Test;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
 
 
 
@@ -92,11 +93,16 @@ public class UserControllerTest {
 			       .contentType(MediaType.APPLICATION_JSON)
 			       .content(createUserInJson("batman","bat","batman@email.com"));
 		
-//		when(userService.login(any())).thenReturn("123456");
+		Map<String, Object> result = new HashMap<String,Object>();
+		
+		result.put("token", "123456");
+		result.put("username", "batman");
+		
+		when(userService.login(any())).thenReturn(result);
 		
 		mockMvc.perform(requestBuilder)
           .andExpect(status().isOk())
-          .andExpect(content().json("{\"token\":\"123456\"}"));
+          .andExpect(content().json("{\"token\":\"" + "123456" + "\"," + "\"username\":\"" + "batman" + "\"}"));
 	}
     
     
