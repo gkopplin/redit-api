@@ -5,6 +5,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
 import com.ga.entity.User;
+import com.ga.exception.LoginException;
 
 public class UserServiceTest {
 	@Mock
@@ -62,7 +68,6 @@ public class UserServiceTest {
 	
 	 @Test
 	    public void signup_UserNotFound_Error() {
-	    	
 	    	User tempUser = user;
 	    	tempUser.setUserId(null);
 
@@ -73,6 +78,26 @@ public class UserServiceTest {
 	        assertEquals(token, null);
 	    }
 	 
+	 @Test
+	 public void login_ReturnJwt_Success() throws EntityNotFoundException, LoginException {
+		 Map<String, Object> expectedToken = new HashMap<String,Object>();
+		    expectedToken.put("token", "12345");
+		    expectedToken.put("username", "batman");
+		  
+		 
+		 when(userDao.login(any())).thenReturn(user);
+		 when(bCryptPasswordEncoder.matches(any(), any())).thenReturn(true);
+		 when(userDao.getUserByUsername(anyString())).thenReturn(user);
+		 when(jwtUtil.generateToken(any())).thenReturn((String)expectedToken.get("token"));
+	     when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("bat");
+		 
+	    
+	     Map<String, Object> actualToken = userService.login(user);
+	        
+	     assertEquals(actualToken, expectedToken);
+		    
+		  
+	}
 	 
 	 
 	 
