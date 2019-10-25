@@ -2,7 +2,10 @@ package com.ga.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+
 import static org.mockito.Mockito.when;
 
 import org.hibernate.Session;
@@ -73,5 +76,21 @@ public class userDaoTest {
 	        assertNotNull("Test returned null object, expected non-null", savedUser);
 	        assertEquals(savedUser, user);
 	    }	
+	 
+	 
+	 @Test
+	 public void update_User_Success() {
+		 User mockUser = user;
+		 
+		 mockUser.setEmail("superman@ga.com");
+		 
+		 when(session.get(any(Class.class), anyLong())).thenReturn(mockUser);
+		 
+		 User updateUser = userDao.updateUser(mockUser, mockUser.getUserId());
+		
+		 
+		 assertEquals(mockUser, updateUser);
+		 
+	 }
 
 }
