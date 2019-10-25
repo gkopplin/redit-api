@@ -38,7 +38,10 @@ public class Post {
 	
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
-
+    
+    public Post() {
+    	
+    }
 
 	public Long getPostId() {
 		return postId;

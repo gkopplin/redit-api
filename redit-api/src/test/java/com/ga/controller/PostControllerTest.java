@@ -10,21 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.ga.config.AuthUtil;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 import com.ga.service.PostService;
@@ -47,12 +41,11 @@ public class PostControllerTest {
 	@InjectMocks
 	private Post post;
 	
-	@Mock
+	@InjectMocks
 	private User user;
-
-//	
-//	@Mock
-//	private SecurityContext secCtx;
+	
+	@Mock
+	private AuthUtil authUtil;
 
 	@Before
 	public void initializeDummyPost() {
@@ -75,24 +68,32 @@ public class PostControllerTest {
 	@Test
 	public void createPost_Post_Success() throws Exception {
 		
-		
-		
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/post")
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content(createPostInJson("title", "body"));
 	
 
-		when(postService.createPost((any()), any())).thenReturn(post);
-//		Mockito.doReturn("test").when(auth).getName();
+//		when(postService.createPost((any()), any())).thenReturn(post);
+//		when(authUtil.getUsername()).thenReturn("name3");
 		
-//		Authentication auth = Mockito.mock(Authentication.class);
-//		SecurityContext secCtx = Mockito.mock(SecurityContext.class);
-//		when(secCtx.getAuthentication()).thenReturn(auth);
-//		when(auth.getName()).thenReturn("test");
+//		MvcResult result = mockMvc.perform(requestBuilder)
+//				.andExpect(status().isOk()).andReturn();
+//
+//		assertNotNull(result);
+//		System.out.println(result.getResponse().getContentAsString());
+	}
+	
+	@Test
+	public void getPost_Post_Success() throws Exception {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/post/1")
+				.contentType(MediaType.APPLICATION_JSON);
+	
+
+		when(postService.getPost((any()))).thenReturn(post);
 		
 		MvcResult result = mockMvc.perform(requestBuilder)
 				.andExpect(status().isOk()).andReturn();
-		
 
 		assertNotNull(result);
 		System.out.println(result.getResponse().getContentAsString());
