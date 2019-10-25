@@ -1,10 +1,12 @@
 package com.ga.controller;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -182,6 +184,42 @@ public class PostControllerTest {
 		MvcResult result = mockMvc.perform(requestBuilder)
 				.andExpect(status().isOk())
 				.andExpect(content().json("{\"commentId\":1,\"text\":\"text body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null}}"))
+				.andReturn();
+	}
+	
+	@Test
+	public void getComments_CommentList_Success() throws Exception {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/post/1/comment")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		List<Comment> commentsList = new ArrayList<>();
+		commentsList.add(comment);
+
+		when(commentService.getComments((any()))).thenReturn(commentsList);
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+				.andExpect(status().isOk())
+				.andExpect(content().json("[{\"commentId\":1,\"text\":\"text body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null}}]"))
+				.andReturn();
+	}
+	
+	@Test
+	public void getAllPosts_PostList_Success() throws Exception {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.get("/post/list")
+				.contentType(MediaType.APPLICATION_JSON);
+		
+		List<Post> postsList = new ArrayList<>();
+		postsList.add(post);
+
+		when(postService.getAllPosts()).thenReturn(postsList);
+		
+		MvcResult result = mockMvc.perform(requestBuilder)
+				.andExpect(status().isOk())
+				.andExpect(content().json("[{\"postId\":1,\"title\":\"title\",\"body\":\"body\",\"author\":{\"userId\":1,\"username\":\"name3\",\"password\":\"pass\",\"email\":\"name@domain.com\",\"address\":null,\"mobile\":null,\"addlEmail\":null},\"comments\":null}]"))
 				.andReturn();
 	}
 }
