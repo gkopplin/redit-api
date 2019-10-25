@@ -15,9 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.ga.dao.CommentDao;
 import com.ga.dao.PostDao;
-import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.entity.User;
 
