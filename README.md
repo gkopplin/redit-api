@@ -20,6 +20,10 @@
 ## Approach
 
 ## Major obstacles
+- Get to know how does each layer work and connect with each other.
+- Reading frontend code and link frontend with backend.
+- How different layers implement testing. How to assertEquals of a mocked value with actually passed in function value.
+- Jwt technology and implementation.
 
 ## Planning documentation
 Our primary tool for planning and mapping out the timeline for the project was Pivotal Tracker. [Epics and User Stories](https://www.pivotaltracker.com/n/projects/2407479) for this project.
