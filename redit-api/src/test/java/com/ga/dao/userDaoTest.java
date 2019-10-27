@@ -21,6 +21,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import com.ga.entity.User;
+import com.ga.exception.EntityNotFoundException;
 
 public class userDaoTest {
 	@Rule
@@ -67,7 +68,7 @@ public class userDaoTest {
 	
 	
 	 @Test
-	    public void login_User_Success() {
+	    public void login_User_Success() throws EntityNotFoundException {
 	    	when(session.createQuery(anyString())).thenReturn(query);
 	    	when(query.getSingleResult()).thenReturn(user);
 	        
