@@ -1,6 +1,5 @@
 package com.ga.dao;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ga.entity.User;
+import com.ga.exception.EntityNotFoundException;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User login(User user) {
+	public User login(User user) throws EntityNotFoundException {
 		Session session = sessionFactory.getCurrentSession();
 
 		User resultUser;

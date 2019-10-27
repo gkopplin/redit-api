@@ -3,7 +3,6 @@ package com.ga.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ga.entity.JwtResponse;
 import com.ga.entity.User;
+import com.ga.exception.EntityNotFoundException;
 import com.ga.exception.LoginException;
 import com.ga.service.UserService;
 
@@ -37,7 +37,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody User user) throws LoginException, EntityNotFoundException{
+	public ResponseEntity<?> login(@RequestBody User user) throws LoginException, EntityNotFoundException {
 		return new ResponseEntity<Map<String,Object>>(userService.login(user), HttpStatus.OK);
 	}
 

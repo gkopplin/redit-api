@@ -1,8 +1,7 @@
 package com.ga.dao;
 
-import javax.persistence.EntityNotFoundException;
-
 import com.ga.entity.User;
+import com.ga.exception.EntityNotFoundException;
 
 public interface UserDao {
 
