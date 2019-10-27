@@ -6,7 +6,9 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
@@ -16,6 +18,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.ga.dao.UserDao;
@@ -38,7 +43,10 @@ public class UserServiceTest {
 	
     @InjectMocks
     private UserServiceImpl userService;
-	
+    
+//    @InjectMocks
+//    private UserDetails userDetails;
+//	
     @Before
     public void initMocks() {
         MockitoAnnotations.initMocks(this);
@@ -55,13 +63,12 @@ public class UserServiceTest {
 	@Test
 	public void signup_ReturnsJwt_Success() {
 		String expectedToken = "12345";
-		String expectedUsername = "batman";
 		
 		when(userDao.signup(any())).thenReturn(user);
+		when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("bat");
         when(userDao.getUserByUsername(anyString())).thenReturn(user);
         when(jwtUtil.generateToken(any())).thenReturn(expectedToken);
-        when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("bat");
-        
+ 
         String actualToken = userService.signup(user);
         
         assertEquals(actualToken, expectedToken);
@@ -70,6 +77,7 @@ public class UserServiceTest {
 	 @Test
 	    public void signup_UserNotFound_Error() {
 	    	User tempUser = user;
+	    	
 	    	tempUser.setUserId(null);
 
 	        when(userDao.signup(any())).thenReturn(tempUser);
@@ -95,7 +103,14 @@ public class UserServiceTest {
 	    
 	     Map<String, Object> actualToken = userService.login(user);
 	        
-	     assertEquals(actualToken, expectedToken);
+	     try {
+	    	 assertEquals(actualToken, expectedToken);
+	     }
+	     catch(Exception e) {
+	    	 String expectedMessage = "Username/password incorrect.";
+	 	     assertEquals( "Exception message must be correct", expectedMessage, e.getMessage() );
+	     }
+	     
 		  
 	}
 	
@@ -127,6 +142,26 @@ public class UserServiceTest {
 
 	        assertEquals(tempUser.getUsername(), user.getUsername());
 	    }
-	    
+	 
+	 @Test
+	 public void loadUserByUsername_Success(){
+		 List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		 
+		 UserDetails userDetail = new org.springframework.security.core.userdetails.User(user.getUsername(), "12345",
+	                true, true, true, true, authorities);
+		 
+		 when(userDao.getUserByUsername(anyString())).thenReturn(user);
+		 
+//		 UserDetails tempUserDetail = userService.loadUserByUsername(user.getUsername());
+//		 
+//		 try {
+//			 assertEquals(tempUserDetail,userDetail);
+//		 }
+//		 catch(Exception e){
+//			 String expectedMessage = "Unknown user: " + user.getUsername();
+//			 assertEquals( "Exception message must be correct", expectedMessage, e.getMessage());
+//		 }
+		  
+	 }
 
 }
