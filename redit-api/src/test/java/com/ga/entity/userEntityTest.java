@@ -47,8 +47,31 @@ public class userEntityTest {
 		assertNotNull("Test returned null object, expected non-null", user.getUsername());
 	}
 	
-	public void getUserEmail_Success() {
+	public void getEmail_Success() {
 		assertNotNull("Test returned null object, expected non-null", user.getEmail());
 	}
-
+	
+	public void getAddress_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getAddress());
+	}
+	
+	public void getMobile_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getMobile());
+	}
+	
+	public void getAddlEmail_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getAddlEmail());
+	}
+	
+	public void getPassword_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getPassword());
+	}
+	
+	public void getComments_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getComments());
+	}
+	
+	public void getPosts_Success() {
+		assertNotNull("Test returned null object, expected non-null", user.getPosts());
+	}
 }
