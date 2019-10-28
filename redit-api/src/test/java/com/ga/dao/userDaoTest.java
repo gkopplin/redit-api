@@ -83,12 +83,7 @@ public class userDaoTest {
 	 public void update_User_Success() {
 		 User mockUser = user;
 		 
-		 mockUser.setPassword("12345");
-		 mockUser.setAddress("superman st");
-		 mockUser.setUsername("superman");
-		 mockUser.setMobile("000-000-1111");
 		 mockUser.setEmail("superman@ga.com");
-		 mockUser.setAddlEmail("superman2@ga.com");
 		 
 		 when(session.get(any(Class.class), anyLong())).thenReturn(mockUser);
 		 

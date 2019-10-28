@@ -23,8 +23,8 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ga.service.UserServiceImpl;
-import com.ga.util.JwtUtil;
-import com.ga.util.SecurityContextUtil;
+import com.ga.config.JwtUtil;
+//import com.ga.util.SecurityContextUtil;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JwtRequestFilterTest {
@@ -46,8 +46,8 @@ public class JwtRequestFilterTest {
 	@Mock
 	SecurityContext ctx;
 	
-	@Mock
-	SecurityContextUtil securityContextUtil;
+//	@Mock
+//	SecurityContextUtil securityContextUtil;
 	
 	@Mock
 	UserServiceImpl userService;
@@ -64,7 +64,7 @@ public class JwtRequestFilterTest {
 		String token = "token";
 		when(request.getHeader(any())).thenReturn("Bearer " + token);
 		when(jwtUtil.getUsernameFromToken(any())).thenReturn("name3");
-		when(securityContextUtil.getAuth()).thenReturn(auth);
+//		when(securityContextUtil.getAuth()).thenReturn(auth);
         
 		try {
 			jwtRequestFilter.doFilterInternal(request, response, chain);			

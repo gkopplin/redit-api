@@ -18,7 +18,7 @@ import com.ga.dao.UserDao;
 import com.ga.entity.User;
 import com.ga.exception.EntityNotFoundException;
 import com.ga.exception.LoginException;
-import com.ga.util.JwtUtil;
+import com.ga.config.JwtUtil;
 
 
 @Service

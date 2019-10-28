@@ -6,26 +6,22 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
+import com.ga.exception.EntityNotFoundException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.ga.config.JwtUtil;
 import com.ga.dao.UserDao;
 import com.ga.entity.User;
-import com.ga.exception.EntityNotFoundException;
 import com.ga.exception.LoginException;
-import com.ga.util.JwtUtil;
 
 public class UserServiceTest {
 	@Mock
@@ -42,10 +38,7 @@ public class UserServiceTest {
 	
     @InjectMocks
     private UserServiceImpl userService;
-    
-//    @InjectMocks
-//    private UserDetails userDetails;
-//	
+	
     @Before
     public void initMocks() {
         MockitoAnnotations.initMocks(this);
@@ -62,21 +55,21 @@ public class UserServiceTest {
 	@Test
 	public void signup_ReturnsJwt_Success() {
 		String expectedToken = "12345";
+		String expectedUsername = "batman";
 		
 		when(userDao.signup(any())).thenReturn(user);
-		when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("bat");
         when(userDao.getUserByUsername(anyString())).thenReturn(user);
         when(jwtUtil.generateToken(any())).thenReturn(expectedToken);
- 
+        when(bCryptPasswordEncoder.encode(user.getPassword())).thenReturn("bat");
+        
         String actualToken = userService.signup(user);
         
         assertEquals(actualToken, expectedToken);
 	}
 	
 	 @Test
-	    public void signup_NoId_Failure() {
+	    public void signup_UserNotFound_Error() {
 	    	User tempUser = user;
-	    	
 	    	tempUser.setUserId(null);
 
 	        when(userDao.signup(any())).thenReturn(tempUser);

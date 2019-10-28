@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ga.config.AuthUtil;
 import com.ga.entity.Comment;
 import com.ga.entity.Post;
 import com.ga.service.CommentService;
 import com.ga.service.PostService;
-import com.ga.util.AuthUtil;
 
 @RestController
 @RequestMapping("/post")
