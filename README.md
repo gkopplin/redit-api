@@ -18,6 +18,11 @@
     Json Web Token, or JWT, is collection of libraries to facilitate authentication via JSON tokens across various platforms. 
 
 ## Approach
+- We started with the ER diagram, we learned what entities and columns we needed to create, and the relationship between them.
+- We used pivotaltracker to create epics, then disscussed and added user story under each epics one by one.
+- We set up the environment first, created several config files, and application properties.
+- When we set up the project, we start with the controller first, so that we know what parameter we need to pass in, and what output we need to get.
+
 
 ## Major obstacles
 - Get to know how does each layer work and connect with each other.
